@@ -133,14 +133,13 @@ h2 {
 img {
   width: 100%;
   max-width: 260px;
-  height: auto;
   object-fit: contain;
   border-radius: 0;
 }
 
 @media (max-width: 768px) {
   img {
-    width: 200px; /* 태블릿 크기에서 이미지 크기 조정 */
+    width: 200px;
   }
 }
 
