@@ -130,6 +130,35 @@ h2 {
   -webkit-transition: opacity .2s ease-in-out;
 }
 
-span.highlight {
-  background-color: #ffffd0;
+img {
+  width: 100%;
+  max-width: 260px;
+  height: auto;
+  object-fit: contain;
+  border-radius: 0;
+}
+
+@media (max-width: 768px) {
+  img {
+    width: 200px; /* 태블릿 크기에서 이미지 크기 조정 */
+  }
+}
+
+@media (max-width: 480px) {
+  img {
+    width: 180px;
+  }
+}
+
+.highlight {
+  background-color: #f05b5b;
+  color: #ffffff;
+  padding: 0 4px;
+  border-radius: 4px;
+  margin-left: 4px;
+  font-size: 11px;
+}
+
+.author_highlight {
+  background-color: #fff9a6
 }
