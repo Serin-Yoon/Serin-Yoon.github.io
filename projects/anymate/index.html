@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
+  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Anymate</title>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>💫</text></svg>"></link>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Anymate: Animating Arbitrary 3D Faces from Video</h1>
+          <div class="is-size-5 publication-authors">
+            Anonymous Authors
+            <!-- <span class="author-block">
+              <a href="https://serin-yoon.github.io/">Serin Yoon</a>,</span>
+            <span class="author-block">
+              <a href="https://chacorp.github.io/sihuncha/">Sihun Cha</a>,</span>
+            <span class="author-block">
+              <a href="https://kwanyun.github.io/">Kwan Yun</a>,
+            </span>
+            <span class="author-block">
+              <a href="">Youngseo Kim</a>,
+            </span>
+            <span class="author-block">
+              <a href="">Inyup Lee</a>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=u75_aBgAAAAJ&hl=en">Junyong Noh</a>
+            </span> -->
+
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <!-- <span class="author-block">Visual Media Lab, KAIST -->
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+
+              <!-- PDF Link. -->
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/pdf/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span> -->
+
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/abs/2011.12948"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span> -->
+
+              <!-- Video Link. -->
+              <!-- <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span> -->
+
+              <!-- Code Link. -->
+              <!-- <span class="link-block">
+                <a href="https://github.com/google/nerfies"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span> -->
+              
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <img src="./static/images/thumbnail.png">
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We present <b>Anymate</b>, an end-to-end method for capturing and retargeting facial animation from RGB videos to 3D face meshes with various shapes and mesh structures.
+            Our approach tackles the challenge of animating arbitrary 3D faces from in-the-wild video without relying on shared mesh structures or manual correspondences
+            Most existing methods address facial expression capture and retargeting as separate problems, necessitating an additional mechanism to bridge the two tasks.
+            To address this gap, we introduce <b>Anymate</b>, a novel method that animates arbitrary target meshes using source performance videos.
+            <b>Anymate</b> disentangles expression, identity, and skinning features through dedicated encoders and predicts per-vertex deformations using a mesh-agnostic decoder.
+            Temporal coherency is maintained by aggregating expression features across consecutive frames using a temporally aware decoder.
+            In addition, we employ a Laplacian preservation loss to encourage smooth and natural surface deformations, and a Laplacian smoothing loss to suppress local artifacts by promoting surface regularity.
+            Despite being trained on a limited set of templates, <b>Anymate</b> can be generalized to unseen characters at inference time, producing animations that accurately reflect the source performance while preserving the identity of the target mesh.
+            Quantitative and qualitative evaluations including a user study demonstrate that <b>Anymate</b> outperforms state-of-the-art approaches.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Method</h2>
+        <img src="./static/images/train.png">
+      </div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <br><br><br>
+        <h2 class="title is-3">Qualitative Examples</h2>
+        <div class="container" style="max-width:1800px;">
+          <div class="carousel results-carousel">
+            <div class="item">
+              <video autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/example1.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="item">
+              <video autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/example2.mp4"
+                          type="video/mp4">
+              </video>
+            </div>
+            <div class="item">
+              <video autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/example3.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="item">
+              <video autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/example4.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+            <div class="item">
+              <video autoplay controls muted loop playsinline height="100%">
+                <source src="./static/videos/example5.mp4"
+                        type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- <section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@article{park2021nerfies,
+  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
+  title     = {Nerfies: Deformable Neural Radiance Fields},
+  journal   = {ICCV},
+  year      = {2021},
+}</code></pre>
+  </div> -->
+<!-- </section> -->
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <br><br><br>
+          <p>
+            This website is licensed under a <a rel="license"
+                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+          <p>
+            This means you are free to borrow the <a
+              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
+            we just ask that you link back to this page in the footer.
+            Please remember to remove the analytics code included in the header of the website which
+            you do not want on your website.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
