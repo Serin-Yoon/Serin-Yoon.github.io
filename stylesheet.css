@@ -370,7 +370,8 @@ h2 {
 }
 
 .paper-desc,
-.project-desc {
+.project-desc,
+.service-desc {
   font-size: var(--font-size-base);
   font-weight: 300;
 }
