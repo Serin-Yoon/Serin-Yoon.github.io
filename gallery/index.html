@@ -1,0 +1,284 @@
+<!DOCTYPE HTML>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>Gallery</title>
+    <meta name="author" content="Serin Yoon">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="robots" content="noindex">
+    <link rel="shortcut icon" href="../images/favicon/favicon.ico" type="image/x-icon">
+    <link rel="stylesheet" type="text/css" href="../stylesheet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+    <style>
+      /* This page has no hamburger toggle, so keep the single nav link
+         always visible instead of inheriting the mobile collapse behavior */
+      @media (max-width: 768px) {
+        .top-nav-links {
+          display: flex !important;
+          position: static;
+          width: auto;
+          background: transparent;
+          border-bottom: none;
+          padding: 0;
+          flex-direction: row;
+        }
+
+        .top-nav-links a {
+          width: auto;
+          padding: 0;
+        }
+      }
+
+      .gallery-page {
+        box-sizing: border-box;
+        max-width: var(--page-max-width);
+        width: 100%;
+        margin: 0 auto;
+        padding: 48px 24px 40px;
+        animation: fadeInUp 0.6s ease-out;
+        flex: 1 0 auto;
+      }
+
+      .gallery-heading {
+        margin: 0 0 10px;
+        font-size: 30px;
+      }
+
+      .gallery-subheading {
+        margin: 0 0 40px;
+        color: #555;
+        font-size: 16px;
+        font-weight: 300;
+      }
+
+      .gallery-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+        gap: 20px;
+      }
+
+      .gallery-item {
+        position: relative;
+        aspect-ratio: 1 / 1;
+        border: 1px solid #eaeaea;
+        border-radius: 6px;
+        background: #fafafa;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        overflow: hidden;
+        padding: 0;
+        transition: border-color var(--transition-fast), transform var(--transition-fast);
+        font-family: var(--font-main);
+      }
+
+      .gallery-item:hover {
+        border-color: var(--link-color);
+        transform: translateY(-2px);
+      }
+
+      .gallery-item img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+
+      .gallery-item .placeholder-icon {
+        font-size: 26px;
+        opacity: 0.35;
+      }
+
+      .gallery-item .placeholder-label {
+        position: absolute;
+        bottom: 6px;
+        left: 0;
+        right: 0;
+        text-align: center;
+        font-size: 11px;
+        color: #999;
+      }
+
+      .gallery-lightbox {
+        display: flex;
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.82);
+        z-index: 2000;
+        align-items: center;
+        justify-content: center;
+        padding: 40px;
+        box-sizing: border-box;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.25s ease;
+      }
+
+      .gallery-lightbox.is-open {
+        opacity: 1;
+        visibility: visible;
+      }
+
+      .gallery-lightbox-inner {
+        width: 90vw;
+        max-height: 90vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        transform: scale(0.96) translateY(6px);
+        transition: transform 0.25s ease;
+      }
+
+      .gallery-lightbox.is-open .gallery-lightbox-inner {
+        transform: scale(1) translateY(0);
+      }
+
+      .gallery-lightbox-inner img {
+        width: auto;
+        height: auto;
+        max-width: 100%;
+        max-height: 80vh;
+        border-radius: 4px;
+        display: block;
+      }
+
+      .gallery-lightbox-placeholder {
+        width: min(70vw, 480px);
+        aspect-ratio: 1 / 1;
+        background: #1f1f1f;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: rgba(255, 255, 255, 0.4);
+        font-size: 48px;
+      }
+
+      .gallery-lightbox-caption {
+        margin-top: 14px;
+        color: rgba(255, 255, 255, 0.85);
+        font-size: 14px;
+        text-align: center;
+        max-width: 70vw;
+      }
+
+      .gallery-lightbox-close {
+        position: fixed;
+        top: 20px;
+        right: 28px;
+        color: #fff;
+        font-size: 32px;
+        line-height: 1;
+        cursor: pointer;
+        background: none;
+        border: none;
+        opacity: 0.8;
+      }
+
+      .gallery-lightbox-close:hover {
+        opacity: 1;
+      }
+    </style>
+  </head>
+
+  <body id="gallery">
+    <nav class="top-nav">
+      <div class="top-nav-inner" style="justify-content: flex-start;">
+        <div class="top-nav-links">
+          <a href="../#about"><strong>Serin</strong> Yoon</a>
+        </div>
+      </div>
+    </nav>
+
+    <div class="gallery-page">
+      <h1 class="gallery-heading">Gallery</h1>
+      <p class="gallery-subheading">I like to capture random things. Click a photo to view it larger!</p>
+
+      <div class="gallery-grid" id="gallery-grid">
+        <button class="gallery-item" data-caption="View of the Toronto skyline from the Toronto Islands at 8PM.">
+          <img src="../images/gallery/260911_Toronto.png" alt="">
+        </button>
+        <button class="gallery-item" data-caption="People enjoying a picnic at Riverdale Park.">
+          <img src="../images/gallery/260911_Riverdale.png" alt="">
+        </button>
+        <button class="gallery-item" data-caption="Graduated with a master's degree from KAIST. I send my endless love to my family who supported me through this journey. ❤️">
+          <img src="../images/gallery/260911_Graduate.jpg" alt="">
+        </button>
+        <button class="gallery-item" data-caption="Midsummer commute.">
+          <img src="../images/gallery/260911_KAIST2.png" alt="">
+        </button>
+        <button class="gallery-item" data-caption="Autumn leaves trail behind the lab.">
+          <img src="../images/gallery/260911_KAIST.png" alt="">
+        </button>
+      </div>
+    </div>
+
+    <div class="gallery-lightbox" id="gallery-lightbox">
+      <button class="gallery-lightbox-close" id="gallery-lightbox-close" aria-label="Close">&times;</button>
+      <div class="gallery-lightbox-inner" id="gallery-lightbox-inner"></div>
+    </div>
+
+    <footer class="site-footer">
+      <div class="site-footer-inner">
+        <p>&copy; Serin Yoon</p>
+      </div>
+    </footer>
+
+    <script>
+      (function () {
+        var grid = document.getElementById('gallery-grid');
+        var lightbox = document.getElementById('gallery-lightbox');
+        var inner = document.getElementById('gallery-lightbox-inner');
+        var closeBtn = document.getElementById('gallery-lightbox-close');
+
+        function openLightbox(item) {
+          var thumbImg = item.querySelector('img');
+          var fullSrc = item.getAttribute('data-full') || (thumbImg && thumbImg.getAttribute('src'));
+          var caption = item.getAttribute('data-caption');
+          inner.innerHTML = '';
+          if (fullSrc) {
+            var img = document.createElement('img');
+            img.src = fullSrc;
+            img.alt = caption || '';
+            inner.appendChild(img);
+          } else {
+            var placeholder = document.createElement('div');
+            placeholder.className = 'gallery-lightbox-placeholder';
+            placeholder.textContent = '📷';
+            inner.appendChild(placeholder);
+          }
+          if (caption) {
+            var captionEl = document.createElement('div');
+            captionEl.className = 'gallery-lightbox-caption';
+            captionEl.textContent = caption;
+            inner.appendChild(captionEl);
+          }
+          lightbox.classList.add('is-open');
+        }
+
+        function closeLightbox() {
+          lightbox.classList.remove('is-open');
+          inner.innerHTML = '';
+        }
+
+        grid.addEventListener('click', function (e) {
+          var item = e.target.closest('.gallery-item');
+          if (item) openLightbox(item);
+        });
+
+        closeBtn.addEventListener('click', closeLightbox);
+        lightbox.addEventListener('click', function (e) {
+          if (e.target === lightbox) closeLightbox();
+        });
+        document.addEventListener('keydown', function (e) {
+          if (e.key === 'Escape') closeLightbox();
+        });
+      })();
+    </script>
+  </body>
+</html>

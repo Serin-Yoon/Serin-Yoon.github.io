@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="AnyTalk generates audio-driven 3D speech animation for arbitrary rigged characters without any character-specific animation data, by personalizing a video diffusion model and uplifting the result into blendshape animation. Accepted to IEEE TVCG.">
+  <meta name="keywords" content="AnyTalk, audio-driven animation, facial animation, speech animation, diffusion model, video diffusion, blendshape, 3D animation, TVCG">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AnyTalk</title>
+
+  <meta property="og:title" content="AnyTalk: Speech Animation for Arbitrary Characters Leveraging a Video Generation Model">
+  <meta property="og:description" content="Audio-driven 3D speech animation for arbitrary rigged characters, without any character-specific animation data.">
+  <meta property="og:image" content="./static/images/overview.png">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%2210 0 100 100%22><text y=%22.90em%22 font-size=%2290%22>🗣️</text></svg>"></link>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title"><strong>AnyTalk</strong>: Speech Animation for Arbitrary Characters<br>Leveraging a Video Generation Model</h1>
+          <div class="is-size-5 publication-authors">
+            <span class="author-block">
+              <a href="https://kwanyun.github.io/">Kwan Yun</a><sup>1</sup>*,
+            </span>
+            <span class="author-block">
+              <a href="https://serin-yoon.github.io/">Serin Yoon</a><sup>1,2</sup>*,
+            </span>
+            <span class="author-block">
+              <a href="https://vml.kaist.ac.kr/main/people/person/18">Sunjin Jung</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://vml.kaist.ac.kr/main/people/person/19">Jung Eun Yoo</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://liycg.github.io/inyuplee/">Inyup Lee</a><sup>1</sup>,
+            </span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=u75_aBgAAAAJ&hl=en">Junyong Noh</a><sup>1</sup>
+            </span>
+          </div>
+
+          <div class="is-size-5 publication-authors">
+            <span class="author-block"><sup>1</sup>Visual Media Lab, KAIST</span>,
+            <span class="author-block"><sup>2</sup>University of Toronto</span>
+            <br>
+            (*equal contribution)
+          </div>
+
+          <div class="is-size-5 publication-venue">
+            IEEE TVCG 2026
+          </div>
+
+          <div class="publication-links">
+            <span class="link-block">
+              <a href="https://arxiv.org/pdf/2608.16143"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                </span>
+                <span>Paper</span>
+              </a>
+            </span>
+
+            <span class="link-block">
+              <a href="https://arxiv.org/abs/2608.16143"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="ai ai-arxiv"></i>
+                </span>
+                <span>arXiv</span>
+              </a>
+            </span>
+
+            <span class="link-block">
+              <a href="https://github.com/kwanyun/AnyTalk_CsF"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    <i class="fab fa-github"></i>
+                </span>
+                <span>Code</span>
+                </a>
+            </span>
+
+            <span class="link-block">
+              <a href="https://huggingface.co/papers/2608.16143"
+                 class="external-link button is-normal is-rounded is-dark">
+                <span class="icon">
+                    🤗
+                </span>
+                <span>Hugging Face</span>
+              </a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="hero teaser">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div style="max-width: 75%; margin: 0 auto;">
+        <video controls playsinline style="display:block; width:100%; height:auto; border-radius:10px;">
+          <source src="./static/videos/SuppVideo.mp4" type="video/mp4">
+        </video>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We present <strong>AnyTalk</strong>, a novel method for generating 3D speech animations for arbitrary characters without requiring any animation data.
+            While existing audio-driven 3D speech animation methods rely on character-specific training data or laborious rigging/re-meshing, <strong>AnyTalk</strong> circumvents these limitations by leveraging recent video diffusion models trained on extensive video datasets.
+            We first adapt a pre-trained video diffusion model to a target character through our Character-specific Fine-tuning (<em>CsF</em>) technique.
+            By fine-tuning on rendered images of the 3D character paired with zeroed-out audio embeddings (representing “no motion”), we eliminate the need for animation data while preserving the motion prior of large-scale video diffusion model.
+            We then uplift the resulting talking-head video into a 3D speech animation by estimating blendshape parameters through a proposed optimization process. <strong>AnyTalk</strong> enables lip-synced animations across diverse face meshes and blendshape configurations, significantly reducing manual effort and data requirements.
+            We further enhance usability by distilling <strong>AnyTalk</strong> into a streamlined network, <strong>AnyTalk<sub>RT</sub></strong>, thereby enabling real-time performance. By leveraging talking-head video generation, our method broadens access to audio-driven speech animation technology for arbitrary characters.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Method</h2>
+        <img class="paper-figure" src="./static/images/overview.png" alt="AnyTalk pipeline overview">
+        <div class="content has-text-justified">
+          <p>
+            <strong>AnyTalk</strong> leverages an audio-driven video
+            diffusion model to generate 3D speech animation for arbitrary characters.
+            It follows a two-stage pipeline: generating a talking-head video from a
+            rendered image of the character, then uplifting that video into blendshape
+            parameters. No animation data is required at any point in the process.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-justified">
+      <div class="column is-four-fifths content">
+        <h3 class="title is-4">Character-specific Fine-tuning (<em>CsF</em>)</h3>
+        <img class="paper-figure" src="./static/images/CsF_finetuning.png" alt="Character-specific Fine-tuning process">
+        <p>
+          Applying a pre-trained talking-head generation model (<a href="https://arxiv.org/abs/2406.08801">Hallo</a>) directly to a 3D
+          character produces visual mismatches such as unnatural clothing, distorted
+          chins, or a drift toward generic human appearance. <em>CsF</em> addresses
+          this by rendering an image of the character for each activated blendshape,
+          duplicating it into a still-image video, and pairing it with a zeroed-out
+          audio embedding representing "no motion." During fine-tuning, the audio,
+          motion, and ReferenceNet attention layers stay frozen, and only the
+          spatial residual network is trained. This lets the model learn the
+          character's appearance without overwriting its pre-trained motion prior.
+        </p>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-justified">
+      <div class="column is-four-fifths content">
+        <h3 class="title is-4">Video Inference</h3>
+        <img class="paper-figure half" src="./static/images/CsF_inference.png" alt="Inference of the personalized model">
+        <p>
+          At inference, the fine-tuned model takes real speech audio instead
+          of the zero-motion condition used during training. Scaling weights are
+          applied to the pose, expression, and lip attention modules
+          (w<sub>pose</sub>=0, w<sub>exp</sub>=1, w<sub>lip</sub>=2), keeping the
+          head pose stable while driving dynamic lip motion. This stability
+          significantly improves the reliability of the subsequent blendshape
+          optimization stage.
+        </p>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-justified">
+      <div class="column is-four-fifths content">
+        <h3 class="title is-4">Blendshape Optimization</h3>
+        <img class="paper-figure half" src="./static/images/optimization.png" alt="Blendshape optimization process">
+        <p>
+          Blendshape parameters are estimated from the generated 2D video. Talk-related
+          landmark vertices are identified once via ray casting on the neutral mesh,
+          then expression-invariant landmarks are used to estimate a homography that
+          compensates for small frame-to-frame head shifts. The final parameters are
+          optimized using a talk landmark loss, an asymmetric mouth-opening loss that
+          enforces correct mouth aperture, and a regularization loss to keep unrelated
+          blendshapes untouched.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Results</h2>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-centered results-video-row">
+      <div class="column is-full-width">
+        <div class="container" style="max-width:850px;">
+          <div class="video-slider" id="results-slider">
+            <div class="slides">
+              <div class="slide">
+                <video controls playsinline>
+                  <source src="./static/videos/Results_1.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="slide">
+                <video controls playsinline>
+                  <source src="./static/videos/Results_2.mp4" type="video/mp4">
+                </video>
+              </div>
+              <div class="slide">
+                <video controls playsinline>
+                  <source src="./static/videos/Results_3.mp4" type="video/mp4">
+                </video>
+              </div>
+            </div>
+            <button class="control prev" aria-label="Previous">‹</button>
+            <button class="control next" aria-label="Next">›</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-four-fifths content">
+        <p>
+          <strong>AnyTalk</strong> produces natural, well lip-synced animations across
+          characters with widely varying mesh structures, vertex counts, and artistic
+          styles, from stylized to photorealistic, as shown in the videos above.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="Applications">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Applications</h2>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-justified">
+      <div class="column is-four-fifths content">
+        <h3 class="title is-4">Real-Time Distillation</h3>
+        <div class="columns is-centered">
+          <div class="column is-half">
+            <img class="paper-figure" src="./static/images/distillation.png" alt="Distillation process from AnyTalk to AnyTalkRT">
+          </div>
+        </div>
+        <p>
+          Per-frame optimization takes about 3.12&nbsp;seconds, which limits its use for interactive applications. To close
+          this gap, we distill <strong>AnyTalk</strong> into <strong>AnyTalk<sub>RT</sub></strong>, a lightweight
+          network that predicts blendshape parameters directly from audio. The student is trained on around
+          1,600 <strong>AnyTalk</strong>-generated animations using a feature-matching loss and a blendshape
+          reconstruction loss, learning to mimic the teacher's output without running the optimization loop.
+          <strong>AnyTalk<sub>RT</sub></strong> reaches 9.09&nbsp;ms per frame (110&nbsp;FPS) in
+          full precision, trading a modest amount of lip-sync accuracy for real-time speed.
+        </p>
+      </div>
+    </div>
+
+    <div class="columns is-centered has-text-justified">
+      <div class="column is-four-fifths content">
+        <h3 class="title is-4">Extension to Different Video Generation Model</h3>
+        <p>
+          <em>CsF</em> and the optimization pipeline are not tied to a single video generator. We repeated the
+          same procedure on <a href="https://arxiv.org/abs/2412.04448">MEMO</a> in place of Hallo, fine-tuning its spatial layers with the same zeroed-out
+          audio embedding and applying the same landmark-based optimization afterward. The resulting
+          <strong>AnyTalk<sub>MEMO</sub></strong> reproduces the same character-faithful, lip-synced behavior
+          as our Hallo-based model, showing that <strong>AnyTalk</strong> transfers cleanly across different
+          audio-driven video diffusion backbones.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code></code>
+    @article{yun2026anytalk,
+      title={AnyTalk: Speech Animation for Arbitrary Characters Leveraging a Video Generation Model},
+      author={Yun, Kwan and Yoon, Serin and Jung, Sunjin and Yoo, Jung Eun and Lee, Inyup and Noh, Junyong},
+      journal={IEEE Transactions on Visualization and Computer Graphics},
+      year={2026},
+      publisher={IEEE}
+    }
+    </code></pre>
+  </div>
+</section>
+<br><br><br>
+<footer class="footer">
+  <div class="container">
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website code is borrowed from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>. We thank the authors for sharing the templates.
+          </p>
+          <p>
+            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
