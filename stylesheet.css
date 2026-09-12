@@ -584,6 +584,20 @@ img {
   color: var(--link-color);
 }
 
+.footer-break {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .footer-sep {
+    display: none;
+  }
+
+  .footer-break {
+    display: block;
+  }
+}
+
 .news-wrapper {
   width: calc(100% - 60px);
   margin-left: 30px;
