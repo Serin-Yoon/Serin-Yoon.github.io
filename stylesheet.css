@@ -488,6 +488,356 @@ h2 {
   margin: 6px 0 0 0;
 }
 
+.toggle-row > td {
+  vertical-align: top;
+}
+
+.toggle-head {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+/* Inline so the arrow follows the last word when the title wraps */
+.project-toggle {
+  display: inline;
+  padding: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.project-toggle:hover strong {
+  color: var(--link-color);
+}
+
+/* Triangle drawn with CSS borders: a text "▶" renders as a color emoji on iOS */
+.project-toggle-arrow {
+  display: inline-block;
+  width: 0;
+  height: 0;
+  margin-left: 8px;
+  vertical-align: middle;
+  position: relative;
+  top: -1px;
+  border-style: solid;
+  border-width: 5.5px 0 5.5px 8px;
+  border-color: transparent transparent transparent #888;
+  transition: transform 0.2s ease;
+}
+
+/* Rotated triangle reads ~2px low, so lift it slightly */
+.project-toggle[aria-expanded="true"] .project-toggle-arrow {
+  transform: translateY(-2px) rotate(90deg);
+}
+
+/* Notion-style expand: animate height from 0 to auto via grid rows */
+.project-details {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  font-size: var(--font-size-base);
+  font-weight: 350;
+  transition: grid-template-rows 0.35s ease, opacity 0.35s ease, margin-bottom 0.35s ease;
+}
+
+.project-details.is-open {
+  grid-template-rows: 1fr;
+  opacity: 1;
+  margin-bottom: 8px;
+}
+
+.project-details-inner {
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Card that frames the expanded content */
+.project-card {
+  padding: 22px 26px;
+  border: 1px solid #e8e8e8;
+  border-radius: 10px;
+  background: #fdfdfd;
+}
+
+.project-card > :first-child {
+  margin-top: 0 !important;
+}
+
+.project-details-inner > :first-child {
+  margin-top: 18px;
+}
+
+.project-details p {
+  margin: 8px 0;
+}
+
+.project-details h4 {
+  margin: 32px 0 10px;
+  font-size: var(--font-size-base);
+  font-weight: 700;
+}
+
+.project-details ol,
+.project-details ul {
+  margin: 6px 0;
+  padding-left: 20px;
+}
+
+.project-details .section-break {
+  height: 14px;
+}
+
+.project-details li {
+  margin: 4px 0;
+}
+
+.pipeline {
+  margin: 24px 0 24px;
+}
+
+.pl-grid {
+  display: grid;
+  grid-template-columns: 1fr 24px 1fr 24px 1fr 24px 1fr 24px 1fr;
+  grid-template-rows: auto auto auto auto;
+  align-items: end;
+  row-gap: 8px;
+}
+
+.pl-media {
+  grid-row: 1;
+  justify-self: center;
+  position: relative;
+  overflow: hidden;
+  height: 92px;
+}
+
+.pl-media.pl-au {
+  height: 76px;
+}
+
+.project-details .pl-media img {
+  position: absolute;
+  max-width: none;
+  height: auto;
+  border-radius: 0;
+}
+
+.pl-node {
+  grid-row: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  padding: 0 4px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #fafafa;
+  font-size: 12.5px;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.2;
+}
+
+.pl-cond {
+  grid-row: 4;
+  height: 42px;
+  border-style: dashed;
+  border-color: #bbb;
+  background: #fff;
+}
+
+/* Upward arrow from the condition box into "AUs" */
+.pl-arrow-up {
+  grid-row: 3;
+  position: relative;
+  height: 18px;
+  margin-top: -8px;
+}
+
+.pl-arrow-up::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 7px;
+  bottom: 0;
+  border-left: 1.4px solid #999;
+}
+
+.pl-arrow-up::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 1px;
+  margin-left: -3.3px;
+  border-style: solid;
+  border-width: 0 4px 7px 4px;
+  border-color: transparent transparent #999 transparent;
+}
+
+.pl-arrow {
+  grid-row: 2;
+  position: relative;
+  height: 42px;
+}
+
+.pl-arrow::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 4px;
+  right: 9px;
+  border-top: 1.4px solid #999;
+}
+
+.pl-arrow::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 3px;
+  margin-top: -4px;
+  border-style: solid;
+  border-width: 4px 0 4px 7px;
+  border-color: transparent transparent transparent #999;
+}
+
+.pipeline .pipeline-v {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .project-card {
+    padding: 16px;
+  }
+
+  .pipeline .pl-grid {
+    display: none;
+  }
+
+  .pipeline .pipeline-v {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 330px;
+    margin: 0 auto;
+  }
+
+}
+
+.project-details a {
+  color: #666;
+  text-decoration: underline;
+  text-decoration-color: #ccc;
+  text-underline-offset: 2px;
+}
+
+.project-details a:hover {
+  color: #222;
+  text-decoration-color: #666;
+}
+
+.project-details .project-figure {
+  display: block;
+  width: 93%;
+  max-width: 93%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 18px;
+  border-radius: 4px;
+}
+
+.video-wrap {
+  position: relative;
+  margin: 32px 0 0;
+  overflow: hidden;
+  background: #000;
+}
+
+/* Video stays compact; the black wrapper fills the side space */
+.video-wrap video {
+  max-width: 400px;
+  margin: 0 auto !important;
+}
+
+.video-play {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+  background: rgba(0, 0, 0, 0.18);
+  cursor: pointer;
+  transition: background var(--transition-fast);
+}
+
+.video-play::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+  transition: transform var(--transition-fast);
+}
+
+.video-play::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: -6px 0 0 -3px;
+  border-style: solid;
+  border-width: 6px 0 6px 10px;
+  border-color: transparent transparent transparent #222;
+}
+
+.video-play:hover {
+  background: rgba(0, 0, 0, 0.08);
+}
+
+.video-play:hover::before {
+  transform: scale(1.08);
+}
+
+.video-wrap.is-playing .video-play {
+  display: none;
+}
+
+.project-details video {
+  display: block;
+  width: 100%;
+  margin-top: 18px;
+}
+
+.project-details .project-credit {
+  margin-top: 32px;
+}
+
+.project-details .project-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 12px;
+  margin: 22px 0 0;
+  font-size: var(--font-size-highlight);
+  color: #888;
+}
+
+.project-caption {
+  text-align: center;
+  margin-top: 8px !important;
+  margin-bottom: 30px !important;
+  font-size: var(--font-size-highlight);
+  color: #666;
+}
+
 .one {
   width: 160px;
   height: 160px;
