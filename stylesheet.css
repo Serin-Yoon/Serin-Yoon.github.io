@@ -213,8 +213,8 @@ body {
   --font-size-heading: 22px;
   /* removed --font-size-name (unused) */
   --font-size-highlight: 12px;
-  --link-color: #b509ac;
-  --link-hover-color: #d48ed0;
+  --link-color: #175aab;
+  --link-hover-color: #5e93cf;
   --highlight-bg: #d2a0f7;
   --highlight-text: #ffffff;
   --author-highlight-bg: #fff9a6;
@@ -299,7 +299,7 @@ em {
 
 .intro-cell {
   padding: 2.5%;
-  width: 62%;
+  width: 64%;
   vertical-align: middle;
 }
 .center-text {
@@ -385,16 +385,16 @@ em {
 
 .profile-cell {
   padding: 2.5%;
-  width: 33%;
-  max-width: 33%;
+  width: 31%;
+  max-width: 31%;
   text-align: center;
   vertical-align: middle;
 }
 
 .profile-img {
   display: block;
-  width: 88%;
-  max-width: 88%;
+  width: 94%;
+  max-width: 94%;
   margin: 0 auto;
   border-radius: 50%;
   aspect-ratio: 1 / 1;
@@ -482,6 +482,10 @@ h2 {
 
 .paper-desc {
   margin: 0;
+}
+
+.venue {
+  font-weight: 350;
 }
 
 .project-desc {
